@@ -20,7 +20,7 @@
 import ast
 
 class DeAST(ast.NodeVisitor):
-    """Converts an AST intp Python code."""
+    """Converts an AST into Python code."""
     def __init__(self):
         """Initialise the DeAST instance."""
         super().__init__()
@@ -34,4 +34,7 @@ class DeAST(ast.NodeVisitor):
 
 
 class SourceWriter:
-    ...
+    """Generates Python source code."""
+    def __init__(self):
+        """Initialise the SourceWriter instance."""
+        self._buffer = None

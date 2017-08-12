@@ -54,3 +54,10 @@ def test_DeAST_has_SourceWriter():
     deaster = deast.DeAST()
 
     assert isinstance(deaster._source_writer, deast.SourceWriter)
+
+def test_SourceWriter_has_no_buffer():
+    """Does a SourceWriter's _buffer attribute appear to be None?"""
+    from deast import SourceWriter
+    source_writer = SourceWriter()
+
+    assert source_writer._buffer is None
