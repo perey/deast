@@ -49,6 +49,10 @@ def test_str_literal():
     # ...unless a single quotation mark appears in the string.
     compare('"Hello world\'s neighbour"\n')
 
+def test_bytes_literal():
+    """Can deast handle a simple numeric literal?"""
+    compare("b'Hello\\x00world'\n")
+
 # Import statements
 def test_simple_import():
     """Can deast handle a simple import statement?"""
