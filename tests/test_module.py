@@ -19,3 +19,10 @@
 def test_import():
     """Can the deast module be imported?"""
     import deast
+
+def test_DeAST_class():
+    """Can the DeAST class be instantiated?"""
+    from deast import DeAST
+    deaster = DeAST()
+
+    assert isinstance(deaster, DeAST)
