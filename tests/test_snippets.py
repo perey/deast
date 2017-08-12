@@ -22,7 +22,7 @@ import ast
 # The module being tested.
 import deast
 
-def test_on_simple_expr():
+def test_simple_expr():
     """Can DeAST handle a simple expression?"""
     code_in = code_out = '5\n'
     tree = ast.parse(code_in)
@@ -32,7 +32,7 @@ def test_on_simple_expr():
 
     assert deaster.source == code_out
 
-def test_on_simple_import():
+def test_simple_import():
     """Can DeAST handle a simple import statement?"""
     code_in = code_out = 'import sys\n'
     tree = ast.parse(code_in)
@@ -42,7 +42,7 @@ def test_on_simple_import():
 
     assert deaster.source == code_out
 
-def test_on_import_as():
+def test_import_as():
     """Can DeAST handle an import statement with aliases?"""
     code_in = code_out = 'import sys as bar\n'
     tree = ast.parse(code_in)
