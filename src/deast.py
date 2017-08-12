@@ -123,6 +123,9 @@ class SourceWriter:
     def src_Import(self, node):
         return 'import ' + ', '.join(map(self.src_alias, node.names))
 
+    def src_NameConstant(self, node):
+        return node.value
+
     def src_Num(self, node):
         return repr(node.n)
 
