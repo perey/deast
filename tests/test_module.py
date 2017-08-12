@@ -22,7 +22,9 @@ def test_import():
 
 def test_DeAST_class():
     """Can the DeAST class be instantiated?"""
+    from ast import NodeVisitor
     from deast import DeAST
     deaster = DeAST()
 
     assert isinstance(deaster, DeAST)
+    assert isinstance(deaster, NodeVisitor)
