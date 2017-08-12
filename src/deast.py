@@ -57,13 +57,13 @@ class DeAST(ast.NodeVisitor):
         # Only intercept attribute lookups that start with 'visit_'.
         visit_prefix = 'visit_'
         if attr.startswith(visit_prefix):
-            src_funcname = 'src_' + attr[len(visit_prefix):]
+            src_fnname = 'src_' + attr[len(visit_prefix):]
             try:
-                src_func = getattr(self._source_writer, src_funcname)
-                func = lambda node: self._source_writer.print(src_func(node))
+                src_fn = getattr(self._source_writer, src_fnname)
+                visit_fn = lambda node: self._source_writer.print(src_fn(node))
             except AttributeError:
-                func = self.generic_visit
-            return func
+                visit_fn = self.generic_visit
+            return visit_fn
         else:
             # Doesn't start with 'visit_'. Fail the lookup.
             raise AttributeError('{!r} object has no attribute '
