@@ -41,3 +41,13 @@ def test_on_simple_import():
     deaster.visit(tree)
 
     assert deaster.source == code_out
+
+def test_on_import_as():
+    """Can DeAST handle an import statement with aliases?"""
+    code_in = code_out = 'import sys as bar\n'
+    tree = ast.parse(code_in)
+    deaster = deast.DeAST()
+
+    deaster.visit(tree)
+
+    assert deaster.source == code_out

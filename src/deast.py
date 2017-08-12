@@ -112,7 +112,10 @@ class SourceWriter:
 
     # Node source-generating methods.
     def src_alias(self, node):
-        return node.name
+        src = node.name
+        if node.asname is not None:
+            src += ' as ' + node.asname
+        return src
 
     def src_Num(self, node):
         return repr(node.n)
