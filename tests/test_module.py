@@ -36,6 +36,18 @@ def test_SourceWriter_class():
 
     assert isinstance(source_writer, SourceWriter)
 
+def test_DeAST_has_source():
+    """Is a DeAST's source attribute filled when visit() is called?"""
+    from deast import DeAST
+    deaster = DeAST()
+
+    assert hasattr(deaster, 'source')
+    assert deaster.source is None
+
+    deaster.visit()
+
+    assert deaster.source is not None
+
 def test_DeAST_has_SourceWriter():
     """Does a DeAST instance have a SourceWriter instance?"""
     import deast

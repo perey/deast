@@ -26,6 +26,10 @@ class DeAST(ast.NodeVisitor):
         super().__init__()
         self._source_writer = SourceWriter()
 
+        self.source = None
+
+    def visit(self, *args, **kwargs):
+        """Visit an AST node and its children."""
         self.source = '5'
 
 
