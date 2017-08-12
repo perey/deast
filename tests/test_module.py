@@ -38,13 +38,14 @@ def test_SourceWriter_class():
 
 def test_DeAST_has_source():
     """Is a DeAST's source attribute filled when visit() is called?"""
+    from ast import AST
     from deast import DeAST
     deaster = DeAST()
 
     assert hasattr(deaster, 'source')
     assert deaster.source is None
 
-    deaster.visit()
+    deaster.visit(AST())
 
     assert deaster.source is not None
 

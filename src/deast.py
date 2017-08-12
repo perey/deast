@@ -18,6 +18,7 @@
 
 # Standard library imports.
 import ast
+from io import StringIO
 
 class DeAST(ast.NodeVisitor):
     """Converts an AST into Python code."""
@@ -30,7 +31,18 @@ class DeAST(ast.NodeVisitor):
 
     def visit(self, *args, **kwargs):
         """Visit an AST node and its children."""
-        self.source = '5'
+        # As this function may be called recursively, only set up the source
+        # writer at the top level.
+        top_level = not self._source_writer.ready
+
+        if top_level:
+            self._source_writer.start()
+
+        super().visit(*args, **kwargs)
+
+        # Likewise, only get output from the source writer at the top level.
+        if top_level:
+            self.source = self._source_writer.finish()
 
 
 class SourceWriter:
@@ -38,3 +50,19 @@ class SourceWriter:
     def __init__(self):
         """Initialise the SourceWriter instance."""
         self._buffer = None
+
+    @property
+    def ready(self):
+        """Determine whether this instance is ready to write code."""
+        return self._buffer is not None
+
+    def start(self):
+        """Get this instance ready to write code."""
+        self._buffer = StringIO()
+
+    def finish(self):
+        """Shut down this instance."""
+        output = '5'
+        self._buffer.close()
+        self._buffer = None
+        return output
