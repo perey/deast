@@ -44,25 +44,60 @@ class DeAST(ast.NodeVisitor):
         if top_level:
             self.source = self._source_writer.finish()
 
+    # Node visitor methods.
+    def visit_Import(self, node):
+        self._source_writer.print_codeline(self._source_writer.src_Import(node))
+
+    def visit_Num(self, node):
+        self._source_writer.print_codeline(self._source_writer.src_Num(node))
+
 
 class SourceWriter:
     """Generates Python source code."""
+    _indent_prefix = '    '
+
     def __init__(self):
         """Initialise the SourceWriter instance."""
-        self._buffer = None
+        self._buffer = self._indentlvl = None
 
     @property
     def ready(self):
         """Determine whether this instance is ready to write code."""
         return self._buffer is not None
 
+    @property
+    def indent(self):
+        """Get the leading whitespace for the current block."""
+        return self._indent_prefix * self._indentlvl
+
     def start(self):
-        """Get this instance ready to write code."""
+        """Get ready to write code."""
+        assert not self.ready
+
         self._buffer = StringIO()
+        self._indentlvl = 0
 
     def finish(self):
-        """Shut down this instance."""
-        output = '5'
+        """Stop writing code and return what has been written."""
+        assert self.ready
+
+        output = self._buffer.getvalue()
         self._buffer.close()
-        self._buffer = None
+        self._buffer = self._indentlvl = None
         return output
+
+    def print_codeline(self, *args):
+        """Write a complete line of code to the buffer."""
+        assert self.ready
+
+        print(self.indent, *args, sep='', file=self._buffer)
+
+    # Node source-generating methods.
+    def src_alias(self, node):
+        return node.name
+
+    def src_Num(self, node):
+        return repr(node.n)
+
+    def src_Import(self, node):
+        return 'import ' + ', '.join(map(self.src_alias, node.names))

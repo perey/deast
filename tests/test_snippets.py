@@ -24,7 +24,17 @@ import deast
 
 def test_on_simple_expr():
     """Can DeAST handle a simple expression?"""
-    code_in = code_out = '5'
+    code_in = code_out = '5\n'
+    tree = ast.parse(code_in)
+    deaster = deast.DeAST()
+
+    deaster.visit(tree)
+
+    assert deaster.source == code_out
+
+def test_on_simple_import():
+    """Can DeAST handle a simple import statement?"""
+    code_in = code_out = 'import sys\n'
     tree = ast.parse(code_in)
     deaster = deast.DeAST()
 
