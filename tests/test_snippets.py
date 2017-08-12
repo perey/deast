@@ -53,6 +53,10 @@ def test_bytes_literal():
     """Can deast handle a simple numeric literal?"""
     compare("b'Hello\\x00world'\n")
 
+def test_var():
+    """Can deast handle a variable reference?"""
+    compare('x\n')
+
 def test_named_constants():
     """Can deast handle Boolean literals and None?"""
     compare('True\n')
