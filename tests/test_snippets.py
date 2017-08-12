@@ -45,6 +45,9 @@ def test_str_literal():
     # Other ways of writing string literals are converted to single-quoted,
     # one-line strings...
     compare('"""Hello\nworld"""\n', "'Hello\\nworld'\n")
+    compare('"Hello \\"world\\""\n', "'Hello \"world\"'\n")
+    # ...unless a single quotation mark appears in the string.
+    compare('"Hello world\'s neighbour"\n')
 
 # Import statements
 def test_simple_import():
