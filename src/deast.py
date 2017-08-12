@@ -117,8 +117,11 @@ class SourceWriter:
             src += ' as ' + node.asname
         return src
 
+    def src_Import(self, node):
+        return 'import ' + ', '.join(map(self.src_alias, node.names))
+
     def src_Num(self, node):
         return repr(node.n)
 
-    def src_Import(self, node):
-        return 'import ' + ', '.join(map(self.src_alias, node.names))
+    def src_Pass(self, node):
+        return 'pass'

@@ -23,7 +23,7 @@ import ast
 import deast
 
 def test_simple_expr():
-    """Can DeAST handle a simple expression?"""
+    """Can deast handle a simple expression?"""
     code_in = code_out = '5\n'
     tree = ast.parse(code_in)
     deaster = deast.DeAST()
@@ -33,7 +33,7 @@ def test_simple_expr():
     assert deaster.source == code_out
 
 def test_simple_import():
-    """Can DeAST handle a simple import statement?"""
+    """Can deast handle a simple import statement?"""
     code_in = code_out = 'import sys\n'
     tree = ast.parse(code_in)
     deaster = deast.DeAST()
@@ -43,7 +43,7 @@ def test_simple_import():
     assert deaster.source == code_out
 
 def test_import_as():
-    """Can DeAST handle an import statement with aliases?"""
+    """Can deast handle an import statement with aliases?"""
     code_in = code_out = 'import sys as bar\n'
     tree = ast.parse(code_in)
     deaster = deast.DeAST()
@@ -53,8 +53,18 @@ def test_import_as():
     assert deaster.source == code_out
 
 def test_compound_import():
-    """Can DeAST handle a compound import statement?"""
+    """Can deast handle a compound import statement?"""
     code_in = code_out = 'import re, sys as bar, math\n'
+    tree = ast.parse(code_in)
+    deaster = deast.DeAST()
+
+    deaster.visit(tree)
+
+    assert deaster.source == code_out
+
+def test_pass():
+    """Can deast handle the pass statement?"""
+    code_in = code_out = 'pass\n'
     tree = ast.parse(code_in)
     deaster = deast.DeAST()
 
