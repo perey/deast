@@ -120,6 +120,9 @@ class SourceWriter:
     def src_Bytes(self, node):
         return repr(node.s)
 
+    def src_Ellipsis(self, node):
+        return '...'
+
     def src_Import(self, node):
         return 'import ' + ', '.join(map(self.src_alias, node.names))
 

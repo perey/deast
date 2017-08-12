@@ -59,6 +59,10 @@ def test_named_constants():
     compare('False\n')
     compare('None\n')
 
+def test_ellipsis():
+    """Can deast handle the ... literal?"""
+    compare('...\n')
+
 # Import statements
 def test_simple_import():
     """Can deast handle a simple import statement?"""
