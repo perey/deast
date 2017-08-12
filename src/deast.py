@@ -21,3 +21,7 @@ import ast
 
 class DeAST(ast.NodeVisitor):
     ...
+
+
+class SourceWriter:
+    ...

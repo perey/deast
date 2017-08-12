@@ -28,3 +28,10 @@ def test_DeAST_class():
 
     assert isinstance(deaster, DeAST)
     assert isinstance(deaster, NodeVisitor)
+
+def test_SourceWriter_class():
+    """Can the SourceWriter class be instantiated?"""
+    from deast import SourceWriter
+    src_writer = SourceWriter()
+
+    assert isinstance(src_writer, SourceWriter)
