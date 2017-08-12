@@ -32,6 +32,13 @@ def test_DeAST_class():
 def test_SourceWriter_class():
     """Can the SourceWriter class be instantiated?"""
     from deast import SourceWriter
-    src_writer = SourceWriter()
+    source_writer = SourceWriter()
 
-    assert isinstance(src_writer, SourceWriter)
+    assert isinstance(source_writer, SourceWriter)
+
+def test_DeAST_has_SourceWriter():
+    """Does a DeAST instance have a SourceWriter instance?"""
+    import deast
+    deaster = deast.DeAST()
+
+    assert isinstance(deaster._source_writer, deast.SourceWriter)
