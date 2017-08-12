@@ -35,9 +35,16 @@ def compare(code_in, code_out=None):
     assert deaster.source == code_out
 
 # Expressions
-def test_simple_expr():
-    """Can deast handle a simple expression?"""
+def test_num_literal():
+    """Can deast handle a simple numeric literal?"""
     compare('5\n')
+
+def test_str_literal():
+    """Can deast handle a simple string literal?"""
+    compare("'Hello world'\n")
+    # Other ways of writing string literals are converted to single-quoted,
+    # one-line strings...
+    compare('"""Hello\nworld"""\n', "'Hello\\nworld'\n")
 
 # Import statements
 def test_simple_import():

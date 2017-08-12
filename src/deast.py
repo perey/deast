@@ -125,3 +125,6 @@ class SourceWriter:
 
     def src_Pass(self, node):
         return 'pass'
+
+    def src_Str(self, node):
+        return repr(node.s)
