@@ -22,52 +22,37 @@ import ast
 # The module being tested.
 import deast
 
+# Common code for checking expected results.
+def compare(code_in, code_out=None):
+    """Compare code before and after an ast/deast conversion."""
+    if code_out is None:
+        code_out = code_in
+    tree = ast.parse(code_in)
+    deaster = deast.DeAST()
+
+    deaster.visit(tree)
+
+    assert deaster.source == code_out
+
+# Expressions
 def test_simple_expr():
     """Can deast handle a simple expression?"""
-    code_in = code_out = '5\n'
-    tree = ast.parse(code_in)
-    deaster = deast.DeAST()
+    compare('5\n')
 
-    deaster.visit(tree)
-
-    assert deaster.source == code_out
-
+# Import statements
 def test_simple_import():
     """Can deast handle a simple import statement?"""
-    code_in = code_out = 'import sys\n'
-    tree = ast.parse(code_in)
-    deaster = deast.DeAST()
-
-    deaster.visit(tree)
-
-    assert deaster.source == code_out
+    compare('import sys\n')
 
 def test_import_as():
     """Can deast handle an import statement with aliases?"""
-    code_in = code_out = 'import sys as bar\n'
-    tree = ast.parse(code_in)
-    deaster = deast.DeAST()
-
-    deaster.visit(tree)
-
-    assert deaster.source == code_out
+    compare('import sys as bar\n')
 
 def test_compound_import():
     """Can deast handle a compound import statement?"""
-    code_in = code_out = 'import re, sys as bar, math\n'
-    tree = ast.parse(code_in)
-    deaster = deast.DeAST()
+    compare('import re, sys as bar, math\n')
 
-    deaster.visit(tree)
-
-    assert deaster.source == code_out
-
+# Other simple statements
 def test_pass():
     """Can deast handle the pass statement?"""
-    code_in = code_out = 'pass\n'
-    tree = ast.parse(code_in)
-    deaster = deast.DeAST()
-
-    deaster.visit(tree)
-
-    assert deaster.source == code_out
+    compare('pass\n')
